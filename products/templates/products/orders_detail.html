@@ -1,0 +1,21 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+   {% if orders %}
+        <h2>Your orders: {{ user }}</h2>
+         <ol>
+             <p>Number of orders <b>{{ orders.total_quantity }}</b></p>
+         </ol>
+            {% for order in orders %}
+                <ul>
+                    <p>Book: <b>{{ order.product }}</b>: {{ order.product.author }}</p>
+                    <p>Quantity: <b>{{ order.quantity }}</b>; Price: <b>{{ order.sum }}$</b></p>
+                </ul>
+            {% endfor %}
+             <p>Total cost of your order: <b>{{ orders.total_sum }}$</b></p>
+    {% else %}
+        <h2>Sorry, you haven't placed an order yet</h2>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h2>Welcome, {{ user }}</h2>
+        <a href="{% url 'basket' %}">My basket</a>
+        <a href="{% url 'orders' %}">My orders</a>
+    {% endif %}
+    {% if products %}
+        <h2>Books in all genres</h2>
+        <ol>
+            {% for product in products %}
+                <li><a href="{% url 'products_detail' product.pk %}"><h3>{{ product.name }}: {{ product.author }}</h3></a></li>
+                <ul>
+                    <p><b>Genres:</b> {{ product.categories }}</p>
+                    <p><b>Price:</b> {{ product.price }}$</p>
+                </ul>
+                <a href="{% url 'add_to_basket' product.pk %}">Bay</a>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h2>Sorry, there are no products yet</h2>
+    {% endif %}
+{% endblock %}

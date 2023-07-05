@@ -1,0 +1,23 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+   {% if baskets %}
+        <h2>Your basket: {{ user }}</h2>
+         <ol>
+             <p>Number of books in the basket <b>{{ baskets.total_quantity }}</b></p>
+         </ol>
+            {% for basket in baskets %}
+                <ul>
+                    <p>Book: <b>{{ basket.product }}</b>: {{ basket.product.author }}</p>
+                    <p>Quantity: <b>{{ basket.quantity }}</b>; Price: <b>{{ basket.sum }}$</b></p>
+                    <a href="{% url 'basket_remove' basket.pk %}">delete</a>
+                    <a href="{% url 'add_to_order' basket.pk %}">Check out</a>
+                </ul>
+            {% endfor %}
+             <p>Total cost of your order: <b>{{ baskets.total_sum }}$</b></p>
+    {% else %}
+        <h2>Sorry, your shopping cart is empty</h2>
+    {% endif %}
+{% endblock %}

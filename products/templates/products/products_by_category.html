@@ -1,0 +1,21 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    {% if products %}
+        <h2>Books in the {{ category.name }} genre</h2>
+         <ol>
+            {% for product in products %}
+                <li><a href="{% url 'products_detail' product.pk %}"><h3>{{ product.name }}: {{ product.author }}</h3></a></li>
+                <ul>
+                    <p><b>Genres:</b> {{ product.categories }}</p>
+                    <p><b>Price:</b> {{ product.price }}$</p>
+                </ul>
+                <a href="{% url 'add_to_basket' product.pk %}">Bay</a>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h2>Sorry, there are no books in this genre yet</h2>
+    {% endif %}
+{% endblock %}

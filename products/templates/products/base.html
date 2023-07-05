@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}:: Books shop</title>
+</head>
+<body>
+    <h1>Welcome to books shop</h1>
+    <a href="{% url 'home' %}">Home page</a>
+    <a href="{% url 'categories' %}">Genres</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'create_product' %}">Add book</a>
+        <a href="accounts/logout">Logout</a>
+    {% else %}
+        <a href="accounts/login">Login</a>
+        <a href="accounts/register">Signup</a>
+    {% endif %}
+    {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    <ol><h2>{{ product.name }}: {{ product.author }}</h2></ol>
+    <p>{{ product.description }}</p>
+    <p>{{ product.categories }}</p>
+    <p>{{ product.price }}$</p>
+    <p>Posted by <b>{{ product.user }}</b> user:</p>
+    <p>Added: {{ product.data_created | date:"d.m.Y H:i" }} by the {{ product.user }}:: there are {{ product.stock }} copies left</p>
+    {% if user.is_authenticated and product.user == user or user.is_superuser %}
+        <a href="{% url 'update_product' product.pk %}">Edit</a>
+        <a href="{% url 'delete_product' product.pk %}">Delete</a>
+    {% endif %}
+{% endblock %}

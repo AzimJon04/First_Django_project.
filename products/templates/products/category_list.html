@@ -1,0 +1,16 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    {% if categories %}
+        <h2>Genres</h2>
+        <ol>
+            {% for category in categories %}
+                <li><a href="{% url 'products_by_category' category.pk %}"><h3>{{ category.name }}</h3></a></li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h2>Sorry, the books are not arranged by genre</h2>
+    {% endif %}
+{% endblock %}
