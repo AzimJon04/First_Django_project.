@@ -13,5 +13,5 @@ pip install -r requirements.txt
 ## Usage
 
 ```bash
-python3 manage.py
+.\manage.py runserver
 ```
