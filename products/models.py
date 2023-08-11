@@ -16,7 +16,7 @@ class Categories(models.Model):
 
 
 class Products(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     author = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField()
