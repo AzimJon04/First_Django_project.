@@ -3,14 +3,20 @@
 {% block title %}Products{% endblock %}
 
 {% block content %}
-    <ol><h2>{{ product.name }}: {{ product.author }}</h2></ol>
-    <p>{{ product.description }}</p>
-    <p>{{ product.categories }}</p>
-    <p>{{ product.price }}$</p>
-    <p>Posted by <b>{{ product.user }}</b> user:</p>
-    <p>Added: {{ product.data_created | date:"d.m.Y H:i" }} by the {{ product.user }}:: there are {{ product.stock }} copies left</p>
-    {% if user.is_authenticated and product.user == user or user.is_superuser %}
-        <a href="{% url 'update_product' product.pk %}">Edit</a>
-        <a href="{% url 'delete_product' product.pk %}">Delete</a>
-    {% endif %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{ product.name }}: {{ product.author }}</h2>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text"><strong>Genres:</strong> {{ product.categories }}</p>
+                <p class="card-text"><strong>Price:</strong> {{ product.price }}$</p>
+                <p class="card-text">Posted by <strong>{{ product.user }}</strong> user</p>
+                <p class="card-text">Added: {{ product.date_created|date:"d.m.Y H:i" }} by {{ product.user }} - {{ product.stock }} copies left</p>
+                {% if user.is_authenticated and product.user == user or user.is_superuser %}
+                    <a href="{% url 'update_product' product.pk %}" class="btn btn-primary mr-2">Edit</a>
+                    <a href="{% url 'delete_product' product.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </div><br><br><br>
+    </div>
 {% endblock %}

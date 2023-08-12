@@ -82,18 +82,19 @@ def baskets_remove(request, id_basket):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-def add_to_order(request, id_basket):
-    basket = Basket.objects.get(id=id_basket)
-    order = Orders.objects.filter(user=request.user, product=basket.product)
-
-    if not order.exists():
-        Orders.objects.create(user=request.user, product=basket.product, quantity=basket.quantity)
-        basket.delete()
-    else:
-        order = order.first()
-        order.quantity += basket.quantity
-        order.save()
-        basket.delete()
+def add_to_order(request):
+    baskets = Basket.objects.filter(user=request.user)
+    print(baskets)
+    for basket in baskets:
+        order = Orders.objects.filter(user=request.user, product=basket.product)
+        if not order.exists():
+            Orders.objects.create(user=request.user, product=basket.product, quantity=basket.quantity)
+            basket.delete()
+        else:
+            order = order.first()
+            order.quantity += basket.quantity
+            order.save()
+            basket.delete()
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 

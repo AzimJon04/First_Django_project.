@@ -3,21 +3,24 @@
 {% block title %}Products{% endblock %}
 
 {% block content %}
-   {% if baskets %}
-        <h2>Your basket: {{ user }}</h2>
-         <ol>
-             <p>Number of books in the basket <b>{{ baskets.total_quantity }}</b></p>
-         </ol>
-            {% for basket in baskets %}
-                <ul>
-                    <p>Book: <b>{{ basket.product }}</b>: {{ basket.product.author }}</p>
-                    <p>Quantity: <b>{{ basket.quantity }}</b>; Price: <b>{{ basket.sum }}$</b></p>
-                    <a href="{% url 'basket_remove' basket.pk %}">delete</a>
-                    <a href="{% url 'add_to_order' basket.pk %}">Check out</a>
-                </ul>
-            {% endfor %}
-             <p>Total cost of your order: <b>{{ baskets.total_sum }}$</b></p>
-    {% else %}
-        <h2>Sorry, your shopping cart is empty</h2>
-    {% endif %}
+    <div class="container mt-5">
+        {% if baskets %}
+            <h2>Your Basket: {{ user }}</h2>
+            <p>Total Number of Books in the Basket: <b>{{ baskets.total_quantity }}</b></p>
+            <ul class="list-group mt-3">
+                {% for basket in baskets %}
+                    <li class="list-group-item">
+                        <p><b>Book:</b> {{ basket.product.name }} by {{ basket.product.author }}</p>
+                        <p><b>Quantity:</b> {{ basket.quantity }}</p>
+                        <p><b>Price:</b> {{ basket.sum }}$</p>
+                        <a href="{% url 'basket_remove' basket.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="mt-3">Total Cost of Your Order: <b>{{ baskets.total_sum }}$</b></p>
+            <a href="{% url 'add_to_order'%}" class="btn btn-primary btn-sm">Check Out</a><br><br><br>
+        {% else %}
+            <h2>Sorry, Your Shopping Cart is Empty</h2>
+        {% endif %}
+    </div><br><br><br>
 {% endblock %}

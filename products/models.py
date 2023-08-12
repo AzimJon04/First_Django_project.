@@ -21,7 +21,7 @@ class Products(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField()
     price = models.FloatField()
-    categories = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    categories = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name='books')
     stock = models.IntegerField()
     data_created = models.DateTimeField(auto_now_add=True)
 
@@ -43,7 +43,7 @@ class BasketQuerySet(models.QuerySet):
 
 class Basket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='books')
     quantity = models.PositiveIntegerField(default=0)
     data_created = models.DateTimeField(auto_now_add=True)
 

@@ -3,14 +3,19 @@
 {% block title %}Products{% endblock %}
 
 {% block content %}
-    {% if categories %}
-        <h2>Genres</h2>
-        <ol>
-            {% for category in categories %}
-                <li><a href="{% url 'products_by_category' category.pk %}"><h3>{{ category.name }}</h3></a></li>
-            {% endfor %}
-        </ol>
-    {% else %}
-        <h2>Sorry, the books are not arranged by genre</h2>
-    {% endif %}
+    <div class="container mt-5">
+        {% if categories %}
+            <h2 class="mb-4">Genres</h2>
+            <div class="list-group mt-3">
+                {% for category in categories %}
+                    <a href="{% url 'products_by_category' category.pk %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">{{ category.name }}</h4>
+                        <span class="badge bg-secondary">{{ category.books.count }}</span>
+                    </a>
+                {% endfor %}
+            </div><br><br><br>
+        {% else %}
+            <h2 class="mt-4">Sorry, the books are not arranged by genre</h2>
+        {% endif %}
+    </div><br><br><br>
 {% endblock %}
